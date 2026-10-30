@@ -17,6 +17,9 @@ RUN npm ci --omit=dev
 # Step 4c: copy the app source into /app.
 COPY app/ ./
 
+# Patch the vulnerable transitive package in the image only; keep app/ unchanged.
+RUN npm update proxy-addr --save --omit=dev
+
 # =============================================================================
 # Runtime stage — slim final image. Nothing from builder's caches leaks in.
 # =============================================================================
